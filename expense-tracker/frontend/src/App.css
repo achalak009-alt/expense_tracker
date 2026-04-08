@@ -1,0 +1,191 @@
+/* GLOBAL */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+
+  /* Combined background (image + soft gradient overlay) */
+  background: 
+    linear-gradient(135deg, rgba(31, 28, 44, 0.65), rgba(146, 141, 171, 0.65)),
+    url("https://images.unsplash.com/photo-1554224155-6726b3ff858f") 
+    no-repeat center center/cover;
+}
+
+/* MAIN CONTAINER */
+.container {
+  text-align: center;
+  padding: 20px;
+  background: transparent; /* FIXED — no dark overlay */
+  min-height: 100vh;
+  color: white;
+}
+
+/* TITLE */
+.title {
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+
+/* FORM */
+.form {
+  background: rgba(255, 255, 255, 0.10); /* light glass */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 20px;
+  border-radius: 15px;
+  width: 300px;
+  margin: auto;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.form input {
+  display: block;
+  width: 90%;
+  margin: 10px auto;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+}
+
+.form button {
+  background: linear-gradient(45deg, #ff6a00, #ee0979);
+  color: white;
+  padding: 10px;
+  border: none;
+  width: 95%;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* EXPENSE CARDS */
+.expense-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  margin: 10px;
+  padding: 15px;
+  border-radius: 15px;
+  width: 160px;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card button {
+  background: red;
+  color: white;
+  border: none;
+  padding: 5px;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+/* CHART SECTION */
+.chart-container {
+  margin-top: 30px;
+  background: rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+.chart-container h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* GLASS BOX */
+.glass {
+  position: relative;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  padding: 25px;
+  transition: 0.3s ease;
+}
+
+.glass:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+}
+
+.glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  pointer-events: none;
+}
+.analytics-box {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 25px;
+  height: 350px;      /* reduce height */
+  overflow: hidden;   /* hide extra */
+}
+
+canvas {
+  width: 260px !important;
+  height: 260px !important;
+}
+.square-glass {
+  width: 300px;
+  height: 300px;
+  padding: 15px;
+  border-radius: 20px;
+
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+/* Fixes the huge ugly box */
+.analytics-container {
+  width: 100%;
+  height: auto;
+  padding: 40px 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Clean heading */
+.analytics-container h2 {
+  color: white;
+  margin-bottom: 25px;
+  font-size: 28px;
+}
+
+/* Square glassmorphic box */
+.chart-box {
+  width: 320px;
+  height: 320px;
+  padding: 20px;
+  border-radius: 20px;
+
+  background: rgba(1, 4, 139, 0.87);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
