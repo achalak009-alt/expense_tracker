@@ -28,12 +28,12 @@ function App() {
   }, []);
 
   const fetchExpenses = async () => {
-    const res = await axios.get("http://127.0.0.1:5000/expenses");
+    const res = await axios.get("https://expense-tracker-h01c.onrender.com/expenses");
     setExpenses(res.data);
   };
 
   const deleteExpense = async (id) => {
-    await axios.delete(`http://127.0.0.1:5000/delete/${id}`);
+    await axios.delete(`https://expense-tracker-h01c.onrender.com/delete/${id}`);
     fetchExpenses();
   };
 
@@ -41,7 +41,7 @@ function App() {
     const newAmount = prompt("Enter new amount:");
     if (!newAmount) return;
 
-    await axios.put(`http://127.0.0.1:5000/update/${id}`, {
+    await axios.put(`https://expense-tracker-h01c.onrender.com/update/${id}`, {
       ...form,
       amount: newAmount
     });
@@ -51,7 +51,7 @@ function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post("http://127.0.0.1:5000/add", form);
+    await axios.post("https://expense-tracker-h01c.onrender.com/add", form);
     fetchExpenses();
   };
 
