@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
 
- import { Bar } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   BarElement,
@@ -13,6 +13,7 @@ import {
 } from "chart.js";
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
+
 function App() {
   const [expenses, setExpenses] = useState([]);
   const [form, setForm] = useState({
@@ -30,21 +31,23 @@ function App() {
     const res = await axios.get("http://127.0.0.1:5000/expenses");
     setExpenses(res.data);
   };
+
   const deleteExpense = async (id) => {
-  await axios.delete(`http://127.0.0.1:5000/delete/${id}`);
-  fetchExpenses();
-};
-const editExpense = async (id) => {
-  const newAmount = prompt("Enter new amount:");
-  if (!newAmount) return;
+    await axios.delete(`http://127.0.0.1:5000/delete/${id}`);
+    fetchExpenses();
+  };
 
-  await axios.put(`http://127.0.0.1:5000/update/${id}`, {
-    ...form,
-    amount: newAmount
-  });
+  const editExpense = async (id) => {
+    const newAmount = prompt("Enter new amount:");
+    if (!newAmount) return;
 
-  fetchExpenses();
-};
+    await axios.put(`http://127.0.0.1:5000/update/${id}`, {
+      ...form,
+      amount: newAmount
+    });
+
+    fetchExpenses();
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -52,88 +55,85 @@ const editExpense = async (id) => {
     fetchExpenses();
   };
 
-};
-// DYNAMIC CHART BASED ON EXPENSES
-const categories = ["shopping", "food", "bills", "travel", "others"];
+  // Chart Data
+  const categories = ["shopping", "food", "bills", "travel", "others"];
 
-// Sum total spent per category
-const categoryTotals = categories.map(cat =>
-  expenses
-    .filter(e => e.category === cat)
-    .reduce((sum, e) => sum + Number(e.amount), 0)
-);
+  const categoryTotals = categories.map(cat =>
+    expenses
+      .filter(e => e.category === cat)
+      .reduce((sum, e) => sum + Number(e.amount), 0)
+  );
 
-const data = {
-  labels: categories,
-  datasets: [
-    {
-      label: "Expenses by Category",
-      data: categoryTotals,
-      backgroundColor: "rgba(0, 102, 255, 0.6)",  // darker bar color
-      borderRadius: 6,
-    },
-  ],
-};
+  const data = {
+    labels: categories,
+    datasets: [
+      {
+        label: "Expenses by Category",
+        data: categoryTotals,
+        backgroundColor: "rgba(0, 102, 255, 0.6)",
+        borderRadius: 6,
+      },
+    ],
+  };
 
-const options = {
-  responsive: true,
-  maintainAspectRatio: false,
-  plugins: {
-    legend: { labels: { color: "white" } },
-  },
-  scales: {
-    x: {
-      ticks: { color: "white" },
-      grid: { display: false },
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { labels: { color: "white" } },
     },
-    y: {
-      ticks: { color: "white" },
-      grid: { color: "rgba(255,255,255,0.15)" },
+    scales: {
+      x: {
+        ticks: { color: "white" },
+        grid: { display: false },
+      },
+      y: {
+        ticks: { color: "white" },
+        grid: { color: "rgba(255,255,255,0.15)" },
+      },
     },
-  },
-};
+  };
+
   return (
-  <div className="container">
-    <h1 className="title">💰 Expense Tracker</h1>
+    <div className="container">
+      <h1 className="title">💰 Expense Tracker</h1>
 
-    <form className="form" onSubmit={handleSubmit}>
-      <input placeholder="Amount"
-        onChange={e => setForm({...form, amount: e.target.value})}/>
-      
-      <input placeholder="Category"
-        onChange={e => setForm({...form, category: e.target.value})}/>
-      
-      <input type="date"
-        onChange={e => setForm({...form, date: e.target.value})}/>
-      
-      <input placeholder="Description"
-        onChange={e => setForm({...form, description: e.target.value})}/>
-      
-      <button type="submit">➕ Add Expense</button>
-    </form>
- <div className="analytics-container">
-  <h2>Analytics</h2>
-<div className="chart-box">
-    <Bar data={data} options={options} />
-  </div>
-</div>
+      <form className="form" onSubmit={handleSubmit}>
+        <input placeholder="Amount"
+          onChange={e => setForm({...form, amount: e.target.value})}/>
 
-    <div className="expense-list">
-      {expenses.map(e => (
-        <div key={e.id} className="card">
-          <p>₹{e.amount}</p>
-          <span>{e.category}</span>
-          <small>{e.date}</small>
-          <button onClick={() => editExpense(e.id)}>
-          ✏️ Edit
-          </button>
-          <button onClick={() => deleteExpense(e.id)}>
-            ❌ Delete
-          </button>
+        <input placeholder="Category"
+          onChange={e => setForm({...form, category: e.target.value})}/>
+
+        <input type="date"
+          onChange={e => setForm({...form, date: e.target.value})}/>
+
+        <input placeholder="Description"
+          onChange={e => setForm({...form, description: e.target.value})}/>
+
+        <button type="submit">➕ Add Expense</button>
+      </form>
+
+      <div className="analytics-container">
+        <h2>Analytics</h2>
+        <div className="chart-box">
+          <Bar data={data} options={options} />
         </div>
-      ))}
+      </div>
+
+      <div className="expense-list">
+        {expenses.map(e => (
+          <div key={e.id} className="card">
+            <p>₹{e.amount}</p>
+            <span>{e.category}</span>
+            <small>{e.date}</small>
+            <button onClick={() => editExpense(e.id)}>✏️ Edit</button>
+            <button onClick={() => deleteExpense(e.id)}>❌ Delete</button>
+          </div>
+        ))}
+      </div>
     </div>
-  </div>
-);
+  );
+}
 
 export default App;
