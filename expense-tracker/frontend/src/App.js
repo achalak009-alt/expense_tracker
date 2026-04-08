@@ -52,24 +52,6 @@ const editExpense = async (id) => {
     fetchExpenses();
   };
 
-
-// Prepare chart data
-const chartData = {
-  labels: expenses.map(exp => exp.category),
-  datasets: [
-    {
-      label: "Expense by Category",
-      data: expenses.map(exp => Number(exp.amount)),
-      backgroundColor: "rgba(80, 50, 180, 0.9)",
-      borderColor: "rgba(75, 192, 192, 1)",
-      borderWidth: 1
-    }
-  ]
-};
-
-const chartOptions = {
-  responsive: true,
-  maintainAspectRatio: false
 };
 // DYNAMIC CHART BASED ON EXPENSES
 const categories = ["shopping", "food", "bills", "travel", "others"];
@@ -93,23 +75,6 @@ const data = {
   ],
 };
 
-const opt = {
-  responsive: true,
-  plugins: {
-    legend: { display: false },
-  },
-  scales: {
-    y: {
-      beginAtZero: true,
-      ticks: { color: "white" },
-      grid: { color: "rgba(255,255,255,0.1)" },
-    },
-    x: {
-      ticks: { color: "white" },
-      grid: { color: "rgba(255,255,255,0.05)" },
-    },
-  },
-};
 const options = {
   responsive: true,
   maintainAspectRatio: false,
@@ -170,5 +135,5 @@ const options = {
     </div>
   </div>
 );
-}
+
 export default App;
