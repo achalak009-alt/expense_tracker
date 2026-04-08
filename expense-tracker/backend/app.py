@@ -56,7 +56,9 @@ def update_expense(id):
         return jsonify({"message": "Updated"})
     
     return jsonify({"error": "Not found"}), 404
+import os
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
